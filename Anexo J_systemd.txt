@@ -1,0 +1,24 @@
+/* Configuración de systemd con análisis automatizado
+A continuación, se muestra un ejemplo práctico de cómo configurar el sistema para activar el análisis con Ollama mediante systemd:
+Archivo .service: /etc/systemd/system/ollama-analisis.service */
+[Unit]
+Description=Servicio para ejecutar análisis de APIs con Ollama
+[Service]
+Type=oneshot
+ExecStart=/usr/local/bin/analizar_ollama.sh
+[Install]
+WantedBy=multi-user.target
+
+Archivo Bash: /usr/local/bin/analizar_ollama.sh
+#!/bin/bash
+API_DIR="/var/www/apis"
+LOG="/var/log/ollama/monitor.log"
+FECHA=$(date "+%F %T")
+# Buscar archivos modificados recientemente
+dind "$API_DIR" -type f -name "*.php" -mmin -2 | while read archivo; do
+nombre=$(basename "$archivo")
+echo "[$FECHA] Cambio detectado en: $archivo" >> "$LOG"
+# Ejecutar análisis con Ollama
+cat "$archivo" | ollama run codellama > "/var/log/ollama/analisis_${nombre}.txt"
+echo "[$FECHA] Análisis completado: $archivo" >> "$LOG"
+done

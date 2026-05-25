@@ -1,0 +1,173 @@
+================================================================================
+REPORTE DE ANÁLISIS DE VULNERABILIDADES - OWASP API TOP 10
+Proyecto: Análisis de APIs Alcaldía de Ibagué
+Autor: John Lugo - UNAD
+Fecha: 2025-09-23 15:07:31
+================================================================================
+
+RESUMEN EJECUTIVO
+----------------------------------------
+Total de vulnerabilidades encontradas: 7
+Vulnerabilidades críticas (CVSS 9.0-10.0): 0
+Vulnerabilidades altas (CVSS 7.0-8.9): 2
+Vulnerabilidades medias (CVSS 4.0-6.9): 5
+Vulnerabilidades bajas (CVSS 0.1-3.9): 0
+
+DISTRIBUCIÓN POR TIPO DE VULNERABILIDAD
+----------------------------------------
+Vulnerabilidad detectada (formato no estructurado): 5
+**Insecure Direct Object Reference (IDOR)**: 1
+Falta de validación de la URL del archivo.: 1
+
+DETALLE DE VULNERABILIDADES
+================================================================================
+
+VULNERABILIDAD #1
+----------------------------------------
+ARCHIVO: /api_laravel8_pisami/src/config/filesystems.php
+TIPO: Falta de validación de la URL del archivo.
+LÍNEA: 14
+CVSS: 7.5
+EVIDENCIA:
+El código no verifica si la URL proporcionada es válida antes de usarla para establecer el valor de `'url'`.
+
+DESCRIPCIÓN:
+La URL proporcionada por `env('APP_URL').'/storage'` puede ser falsa o mal formada, lo que podría permitir a un atacante acceder a archivos no deseados. Esto es una vulnerabilidad crítica ya que el sistema no verifica la validez de la URL antes de usarla.
+
+RECOMENDACIONES:
+Agregar validación para verificar si la URL proporcionada es válida antes de usarla en `'url'`. Puede hacerlo utilizando la función `filter_var()` con el parámetro `FILTER_VALIDATE_URL` o una expresión regular. Por ejemplo:
+```php
+'url' => filter_var(env('APP_URL').'/storage', FILTER_VALIDATE_URL),
+```
+o
+```php
+'url' => preg_match('/^https?:\/\/[^\s]+$/', env('APP_URL').'/storage'),
+```
+
+================================================================================
+
+VULNERABILIDAD #2
+----------------------------------------
+ARCHIVO: /WebService/Traits/ConsultaFacturaPredialTrait.php**
+TIPO: **Insecure Direct Object Reference (IDOR)** - Falta de validación del parámetro `$nroFactura` en la función `consultaFactura`.
+LÍNEA: 58
+CVSS: 7.0
+EVIDENCIA:
+La función `consultaFactura` no valida el parámetro `$nroFactura`, lo que permite un ataque de inyección SQL si se proporciona una entrada maliciosa.
+
+DESCRIPCIÓN:
+El código no verifica si la variable `$nroFactura` es un número válido antes de usarla en la consulta a Predial Nube. Esto puede permitir un ataque de inyección SQL si el parámetro `$nroFactura` contiene caracteres que se interpreten como parte de una consulta SQL.
+
+RECOMENDACIONES:
+Asegúrate de validar los parámetros recibidos antes de usarlos en consultas a bases de datos. En este caso, puedes agregar una validación para asegurarte de que `$nroFactura` sea un número válido antes de usarlo en la consulta a Predial Nube.
+```json
+
+================================================================================
+
+VULNERABILIDAD #3
+----------------------------------------
+ARCHIVO: /api_laravel8_pisami/migrations/2014_10_12_100000_create_password_resets_table.php
+TIPO: Vulnerabilidad detectada (formato no estructurado)
+LÍNEA: 1
+CVSS: 5.0
+EVIDENCIA:
+```json
+{
+  "ARCHIVO": "/api_laravel8_pisami/migrations/2014_10_12_100000_create_password_resets_table.php",
+  "VULNERABILIDAD": "SQL Injection",
+  "L...
+
+DESCRIPCIÓN:
+El modelo detectó posibles vulnerabilidades pero no pudo estructurar la respuesta
+
+RECOMENDACIONES:
+Revisar manualmente el análisis completo y aplicar correcciones según OWASP
+
+================================================================================
+
+VULNERABILIDAD #4
+----------------------------------------
+ARCHIVO: /api_laravel8_pisami/Actions/AplicarPagoReteICAAction.php
+TIPO: Vulnerabilidad detectada (formato no estructurado)
+LÍNEA: 1
+CVSS: 5.0
+EVIDENCIA:
+```json
+{
+  "ARCHIVO": "api_laravel8_pisami/Actions/AplicarPagoReteICAAction.php",
+  "VULNERABILIDAD": "Insecure Procedure Call (SQL Injection)",
+  "LÍNEA...
+
+DESCRIPCIÓN:
+El modelo detectó posibles vulnerabilidades pero no pudo estructurar la respuesta
+
+RECOMENDACIONES:
+Revisar manualmente el análisis completo y aplicar correcciones según OWASP
+
+================================================================================
+
+VULNERABILIDAD #5
+----------------------------------------
+ARCHIVO: /api_laravel8_pisami/Actions/AplicarPagoIndustriaAction.php
+TIPO: Vulnerabilidad detectada (formato no estructurado)
+LÍNEA: 1
+CVSS: 5.0
+EVIDENCIA:
+```json
+{
+  "ARCHIVO": "/api_laravel8_pisami/Actions/AplicarPagoIndustriaAction.php",
+  "VULNERABILIDAD": "SQL Injection",
+  "LÍNEA": "15",
+  "CVSS": "7.0"...
+
+DESCRIPCIÓN:
+El modelo detectó posibles vulnerabilidades pero no pudo estructurar la respuesta
+
+RECOMENDACIONES:
+Revisar manualmente el análisis completo y aplicar correcciones según OWASP
+
+================================================================================
+
+VULNERABILIDAD #6
+----------------------------------------
+ARCHIVO: /var/www/wsrecaudopruebas/public_html/api_laravel8_pisami/src/app/Api/Configuracion/Middleware/CantidadPeticionesPermitidas.php
+TIPO: Vulnerabilidad detectada (formato no estructurado)
+LÍNEA: 1
+CVSS: 5.0
+EVIDENCIA:
+```json
+{
+  "ARCHIVO": "/var/www/wsrecaudopruebas/public_html/api_laravel8_pisami/src/app/Api/Configuracion/Middleware/CantidadPeticionesPermitidas.php",
+  "VULNERABILIDAD": "OWASP API Security Top 10...
+
+DESCRIPCIÓN:
+El modelo detectó posibles vulnerabilidades pero no pudo estructurar la respuesta
+
+RECOMENDACIONES:
+Revisar manualmente el análisis completo y aplicar correcciones según OWASP
+
+================================================================================
+
+VULNERABILIDAD #7
+----------------------------------------
+ARCHIVO: /api_laravel8_pisami//Services/AuditoriaFacturaService.php
+TIPO: Vulnerabilidad detectada (formato no estructurado)
+LÍNEA: 1
+CVSS: 5.0
+EVIDENCIA:
+### ARCHIVO: /api_laravel8_pisami//Services/AuditoriaFacturaService.php
+
+**VULNERABILIDAD:** OWASP A1 - Insuficiente Validación de Entradas
+
+**LÍNEA:** 26
+
+...
+
+DESCRIPCIÓN:
+El modelo detectó posibles vulnerabilidades pero no pudo estructurar la respuesta
+
+RECOMENDACIONES:
+Revisar manualmente el análisis completo y aplicar correcciones según OWASP
+
+================================================================================
+

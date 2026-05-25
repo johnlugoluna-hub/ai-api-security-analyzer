@@ -1,0 +1,132 @@
+================================================================================
+REPORTE DE ANÁLISIS DE VULNERABILIDADES - OWASP API TOP 10
+Proyecto: Análisis de APIs Alcaldía de Ibagué
+Autor: John Lugo - UNAD
+Fecha: 2025-09-24 15:53:14
+================================================================================
+
+RESUMEN EJECUTIVO
+----------------------------------------
+Total de vulnerabilidades encontradas: 6
+Vulnerabilidades críticas (CVSS 9.0-10.0): 0
+Vulnerabilidades altas (CVSS 7.0-8.9): 3
+Vulnerabilidades medias (CVSS 4.0-6.9): 3
+Vulnerabilidades bajas (CVSS 0.1-3.9): 0
+
+DISTRIBUCIÓN POR TIPO DE VULNERABILIDAD
+----------------------------------------
+Vulnerabilidad detectada (formato no estructurado): 1
+Falta la configuración de las cabeceras HTTP necesarias para enviar datos por la cabecera de la peticion.: 1
+Insecure API Key Exposure: 1
+SQL Injection: 1
+**SQL INJECTION**: 1
+Insecure Credentials in Database Configuration: 1
+
+DETALLE DE VULNERABILIDADES
+================================================================================
+
+VULNERABILIDAD #1
+----------------------------------------
+ARCHIVO: /api_laravel8_pisami/src/config/cuental.php
+TIPO: Insecure API Key Exposure
+LÍNEA: 4
+CVSS: 7.5
+EVIDENCIA:
+The public key is directly exposed in the code, which can be easily accessed by anyone with access to the file.
+
+DESCRIPCIÓN:
+This exposure allows attackers to use the public key for authentication and other purposes without needing a private key, thereby compromising security.
+
+RECOMENDACIONES:
+It is recommended to store sensitive information like API keys securely using environment variables or configuration management tools. This will prevent unauthorized access and ensure that only authorized personnel can use these keys.
+
+================================================================================
+
+VULNERABILIDAD #2
+----------------------------------------
+ARCHIVO: /api_laravel8_pisami/src/config/mysql.php
+TIPO: SQL Injection
+LÍNEA: 14
+CVSS: 7.5
+EVIDENCIA:
+La variable `$tns` está concatenada con el valor de `env('DB_TNS', '100.40.2.114/PISAMI')`, lo que permite SQL Injection si se manipula la entrada.
+
+DESCRIPCIÓN:
+El código no valida o sanitiza la entrada para `$tns`, permitiendo que un atacante pueda insertar código SQL en la cadena de conexión.
+
+RECOMENDACIONES:
+Asegúrate de validar y sanitizar las entradas antes de usarlas en consultas SQL.
+
+================================================================================
+
+VULNERABILIDAD #3
+----------------------------------------
+ARCHIVO: /api_laravel8_pisami/src/config/conection.php
+TIPO: Insecure Credentials in Database Configuration
+LÍNEA: 31
+CVSS: 7.5
+EVIDENCIA:
+The 'username' and 'password' fields are directly exposed in the configuration file, which can be easily accessed by anyone with access to the server.
+
+DESCRIPCIÓN:
+The 'username' and 'password' fields in the database configuration file are hardcoded and not encrypted. This means that any user with access to the server can view these credentials and use them to log into the database. This is a significant security risk as it allows unauthorized access to sensitive data.
+
+RECOMENDACIONES:
+It is recommended to store sensitive information such as usernames and passwords in environment variables or secure configuration files instead of hardcoding them in the configuration file. Additionally, it is recommended to use strong encryption for sensitive data stored in the database.
+
+================================================================================
+
+VULNERABILIDAD #4
+----------------------------------------
+ARCHIVO: /api_laravel8_pisami/src/app/Http/Kernel.php**
+TIPO: Falta la configuración de las cabeceras HTTP necesarias para enviar datos por la cabecera de la peticion.
+LÍNEA: 17
+CVSS: 6.5
+EVIDENCIA:
+La línea 17 del código contiene el middleware `cabecera:X-Application-Name`, que es necesario para enviar datos por la cabecera de la peticion.
+
+DESCRIPCIÓN:
+El middleware `cabecera:X-Application-Name` se utiliza para enviar información adicional a través de las cabeceras HTTP. Sin esta configuración, el servidor no puede recibir los datos necesarios para procesar la solicitud.
+
+RECOMENDACIONES:
+Asegúrate de configurar el middleware `cabecera:X-Application-Name` en tu aplicación para que pueda enviar datos por la cabecera de la peticion.
+
+================================================================================
+
+VULNERABILIDAD #5
+----------------------------------------
+ARCHIVO: api_laravel8_pisami/src/database/migrations/2014_10_12_100000_create_password_resets_table.php
+TIPO: Vulnerabilidad detectada (formato no estructurado)
+LÍNEA: 1
+CVSS: 5.0
+EVIDENCIA:
+```json
+{
+  "ARCHIVO": "/api_laravel8_pisami/src/database/migrations/2014_10_12_100000_create_password_resets_table.php",
+  "VULNERABILIDAD": "SQL Injectio...
+
+DESCRIPCIÓN:
+El modelo detectó posibles vulnerabilidades pero no pudo estructurar la respuesta
+
+RECOMENDACIONES:
+Revisar manualmente el análisis completo y aplicar correcciones según OWASP
+
+================================================================================
+
+VULNERABILIDAD #6
+----------------------------------------
+ARCHIVO: /var/www/integraciontesoreriatest/public_html/api_laravel8_pisami/src/config/api_recaudo.php**
+TIPO: **SQL INJECTION**
+LÍNEA: 10
+CVSS: 4.9
+EVIDENCIA:
+El valor de `'CodFormaPago'` se obtiene directamente del entorno de variables de entorno (`env('RECAUDO_WS_COD_FORMA_PAGO', '002')`). Esto puede ser vulnerable a ataques SQL si el valor de `'CodFormaPago'` es proporcionado por un usuario no confiable.
+
+DESCRIPCIÓN:
+El valor de `'CodFormaPago'` se obtiene directamente del entorno de variables de entorno (`env('RECAUDO_WS_COD_FORMA_PAGO', '002')`). Esto puede ser vulnerable a ataques SQL si el valor de `'CodFormaPago'` es proporcionado por un usuario no confiable.
+
+RECOMENDACIONES:
+Para prevenir este tipo de vulnerabilidad, se debería usar una función de validación o sanitización para asegurar que los valores ingresados sean válidos antes de ser utilizados en la consulta SQL.
+
+================================================================================
+
