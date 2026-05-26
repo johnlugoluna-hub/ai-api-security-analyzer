@@ -2,7 +2,7 @@ Implementación y especialización de un modelo de inteligencia artificial para 
 
 Información académica
 
-Campo	                  Detalle
+
 Autor	                  John Freddy Lugo Luna
 Asesor	                Hernando José Peña Hidalgo
 Institución	            Universidad Nacional Abierta y a Distancia – UNAD
@@ -12,13 +12,17 @@ Ciudad	                Ibagué, Colombia
 Año	                    2025
 
 Descripción del proyecto
+
 Implementar una solución basada en inteligencia artificial para el análisis en tiempo real de vulnerabilidades en APIs de la nube de la Alcaldía de Ibagué, mediante la adaptación de un modelo de lenguaje grande preentrenado e integración con políticas institucionales de seguridad de la información, con el propósito de fortalecer la protección de los servicios digitales y reducir el riesgo de ciberataques.
 
 Objetivos
 
 •	Identificar las principales amenazas y vulnerabilidades en APIs en la nube, a partir de la revisión de estándares (OWASP API Security Top 10), análisis de incidentes reales y buenas prácticas en plataformas de nube, para establecer la línea base de riesgos que oriente la especialización del modelo de IA.
+
 •	Diseñar un sistema de inteligencia artificial aplicado a la detección automatizada de vulnerabilidades en APIs, mediante la adaptación de un modelo de lenguaje grande (LLM) pre-entrenado y su aplicación al análisis estático de código fuente, para optimizar la detección temprana de fallas y fortalecer la respuesta ante vulnerabilidades.
+
 •	Proponer estrategias de mitigación y recomendaciones técnicas para desarrolladores y equipos de TI, basadas en los patrones identificados por el modelo de IA y las directrices del marco OWASP API Security Top 10, para reducir la exposición a riesgos y mejorar las prácticas de desarrollo seguro.
+
 •	Construir una política institucional de seguridad de la información, alineada con la Política de Gobierno Digital y el Modelo Integrado de Planeación y Gestión (MIPG), para institucionalizar la gestión de riesgos en el uso de APIs y garantizar la sostenibilidad de las medidas de ciberseguridad. 
 
 
