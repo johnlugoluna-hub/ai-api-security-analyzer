@@ -101,6 +101,5 @@ para instrucciones detalladas del despliegue continuo.
 
 Licencia
 
-Proyecto académico desarrollado para la Maestría en Ciberseguridad – UNAD.
-Para uso investigativo y educativo.
+Este proyecto está licenciado bajo la Licencia MIT. Consulte el archivo LICENSE para más detalles.
 
